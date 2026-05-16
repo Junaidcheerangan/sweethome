@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP — Shabeer & Jaseela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Cinzel:wght@400;500;600&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <style>
+    :root {
+      --cream: #f4f0e8;
+      --sage: #7a9e82;
+      --sage-light: #a8c4a0;
+      --sage-deep: #4e7558;
+      --sage-mist: #c8ddc4;
+      --gold: #b8963e;
+      --gold-light: #d4b060;
+      --text-dark: #2e3d2f;
+      --text-mid: #4a5e4b;
+      --text-soft: #6b8070;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(ellipse 900px 600px at 20% 30%, rgba(168,196,160,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 700px 800px at 80% 70%, rgba(122,158,130,0.15) 0%, transparent 70%),
+        linear-gradient(160deg, #dde8d8 0%, #e8ede2 25%, #f0ece2 50%, #e9e4d8 75%, #dfe8da 100%);
+      min-height: 100vh;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--text-dark);
+      padding-top: 80px;
+      padding-bottom: 60px;
+    }
+
+    /* LEAF PARTICLES */
+    .leaf-particle { position:fixed; pointer-events:none; z-index:0; opacity:0; animation:leafDrift linear infinite; }
+    @keyframes leafDrift {
+      0%   { transform:translateY(-30px) rotate(0deg) translateX(0px); opacity:0; }
+      8%   { opacity:0.5; }
+      50%  { transform:translateY(50vh) rotate(200deg) translateX(30px); opacity:0.35; }
+      92%  { opacity:0.15; }
+      100% { transform:translateY(100vh) rotate(360deg) translateX(-20px); opacity:0; }
+    }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 40px;
+      background:rgba(240,236,226,0.90);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(122,158,130,0.35);
+    }
+    .nav-monogram { font-family: 'Lilita One', cursive; font-size:28px; color:var(--sage-deep); letter-spacing:1px; font-weight: bold; }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { font-family:'Cinzel',serif; font-size:10px; letter-spacing:3px; color:var(--sage-deep); text-decoration:none; transition:color 0.3s; }
+    .nav-links a:hover { color:var(--gold); }
+
+    /* AUDIO BAR */
+    .audio-bar {
+      position:fixed; bottom:24px; right:24px; z-index:200;
+      display:flex; align-items:center; gap:10px;
+      background:rgba(240,236,226,0.95);
+      border:1px solid rgba(122,158,130,0.45);
+      padding:10px 16px; border-radius:50px;
+      box-shadow:0 4px 20px rgba(78,117,88,0.18);
+      backdrop-filter:blur(8px);
+    }
+    .audio-label { font-family:'Cinzel',serif; font-size:8px; letter-spacing:2px; color:var(--sage-deep); white-space:nowrap; }
+    .audio-btn {
+      width:36px; height:36px;
+      border:1px solid rgba(122,158,130,0.50);
+      background:rgba(122,158,130,0.12);
+      border-radius:50%; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--sage-deep); font-size:14px; transition:all 0.25s; flex-shrink:0;
+    }
+    .audio-btn:hover { background:rgba(122,158,130,0.24); transform:scale(1.05); }
+    .audio-wave { display:flex; align-items:center; gap:3px; height:20px; }
+    .audio-wave span { width:3px; background:var(--sage); border-radius:2px; animation:wave 1s ease-in-out infinite; }
+    .audio-wave span:nth-child(2) { animation-delay:0.15s; }
+    .audio-wave span:nth-child(3) { animation-delay:0.3s; }
+    .audio-wave span:nth-child(4) { animation-delay:0.45s; }
+    .audio-wave.paused span { animation-play-state:paused; height:4px !important; }
+    @keyframes wave { 0%,100% { height:6px; } 50% { height:18px; } }
+
+    /* PAGE */
+    .page { display:flex; flex-direction:column; align-items:center; padding:40px 20px; }
+
+    .page-heading { text-align:center; margin-bottom:32px; animation:fadeUp 0.9s 0.2s both; }
+    .page-heading h1 { font-family:'Dancing Script',cursive; font-size:72px; color:var(--sage-deep); line-height:1; }
+    .page-heading p { font-family:'Cinzel',serif; font-size:9px; letter-spacing:4px; color:var(--text-mid); margin-top:6px; }
+
+    /* CARD */
+    .card {
+      position:relative; width:100%; max-width:480px;
+      background:
+        radial-gradient(ellipse 340px 260px at 18% 22%, rgba(240,248,240,0.92) 0%, transparent 65%),
+        radial-gradient(ellipse 260px 340px at 82% 65%, rgba(235,245,233,0.88) 0%, transparent 65%),
+        linear-gradient(155deg, #f6f9f4 0%, #f2f6ef 30%, #faf8f3 55%, #f5f2ea 80%, #f3f7f1 100%);
+      border-radius:4px; overflow:hidden; padding:60px 50px 50px;
+      box-shadow:0 30px 80px rgba(78,117,88,0.18), 0 0 0 1px rgba(122,158,130,0.30), inset 0 0 80px rgba(200,221,196,0.20);
+      animation:fadeUp 0.9s 0.4s both;
+    }
+
+    /* BOTANICAL CORNERS */
+    .floral { position:absolute; width:200px; height:200px; pointer-events:none; z-index:3; }
+    .floral-tl { top:-10px; left:-10px; }
+    .floral-tr { top:-10px; right:-10px; transform:scaleX(-1); }
+    .floral-bl { bottom:-10px; left:-10px; transform:scaleY(-1); }
+    .floral-br { bottom:-10px; right:-10px; transform:scale(-1,-1); }
+
+    /* FORM */
+    .form-inner { position:relative; z-index:2; }
+    .form-top { text-align:center; margin-bottom:30px; }
+    .arabic-top { font-size:28px; color:var(--sage-deep); font-family:'Scheherazade New','Traditional Arabic',serif; line-height:1.4; }
+    .divider { width:60px; height:1px; background:linear-gradient(90deg,transparent,var(--sage-light),transparent); margin:14px auto; }
+    .form-subtitle { font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:var(--text-mid); }
+
+    /* WELCOME WRAP */
+    #welcomeWrap div:first-child { color:var(--sage-deep) !important; }
+    #welcomeWrap div:last-child { color:var(--text-mid) !important; }
+    #noIdWrap div { border-color:rgba(122,158,130,0.35) !important; color:var(--text-mid) !important; }
+
+    /* FIELDS */
+    .field-group { margin-bottom:22px; }
+    .field-group label { display:block; font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:var(--text-mid); margin-bottom:8px; }
+    .field-group input {
+      width:100%; padding:13px 16px;
+      background:rgba(248,245,239,0.85);
+      border:1px solid rgba(122,158,130,0.40);
+      border-radius:2px;
+      font-family:'Cormorant Garamond',serif; font-size:17px; color:var(--text-dark);
+      outline:none; transition:border-color 0.3s, box-shadow 0.3s;
+    }
+    .field-group input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(122,158,130,0.15); }
+    .field-group input::placeholder { color:rgba(122,158,130,0.45); }
+
+    /* Stepper */
+    .number-stepper {
+      display:flex; align-items:center; gap:0;
+      border:1px solid rgba(122,158,130,0.40);
+      border-radius:2px; overflow:hidden;
+      background:rgba(240,248,240,0.65);
+    }
+    .stepper-btn { width:48px; height:50px; border:none; background:rgba(122,158,130,0.08); cursor:pointer; font-size:20px; color:var(--sage-deep); transition:background 0.2s; flex-shrink:0; }
+    .stepper-btn:hover { background:rgba(122,158,130,0.18); }
+    .stepper-input { flex:1; border:none !important; box-shadow:none !important; text-align:center; font-size:22px !important; font-weight:500; background:transparent !important; color:var(--text-dark) !important; }
+
+    /* BUTTONS */
+    .btn-submit {
+      width:100%; padding:16px;
+      background:linear-gradient(135deg,#4e7558,#7a9e82);
+      color:#f4f0e8; border:none; cursor:pointer;
+      font-family:'Cinzel',serif; font-size:11px; letter-spacing:4px;
+      transition:all 0.3s; border-radius:2px;
+      box-shadow:0 4px 20px rgba(78,117,88,0.28); margin-top:8px;
+    }
+    .btn-submit:hover { background:linear-gradient(135deg,#7a9e82,#a8c4a0); transform:translateY(-2px); box-shadow:0 8px 28px rgba(78,117,88,0.38); }
+    .btn-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    .btn-decline {
+      width:100%; padding:13px; background:transparent;
+      color:var(--text-mid); border:1px solid rgba(122,158,130,0.40);
+      cursor:pointer; font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px;
+      transition:all 0.3s; border-radius:2px; margin-top:10px;
+    }
+    .btn-decline:hover { background:rgba(122,158,130,0.10); border-color:var(--sage); transform:translateY(-1px); }
+    .btn-decline:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+
+    .spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(244,240,232,0.4); border-top-color:#f4f0e8; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:8px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .error-msg { font-family:'Cinzel',serif; font-size:9px; letter-spacing:2px; color:#c05020; text-align:center; margin-top:12px; display:none; }
+
+    .note { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--text-soft); text-align:center; margin-top:18px; line-height:1.6; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    footer { text-align:center; padding:24px; font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:rgba(78,117,88,0.55); margin-top:20px; }
+
+    @media (max-width:520px) {
+      .card { padding:50px 24px 40px; }
+      nav { padding:14px 20px; }
+      .nav-links { gap:18px; }
+      .page-heading h1 { font-size:56px; }
+      .floral { width:150px; height:150px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND NASHEED -->
+  <audio id="nasheed" loop preload="auto">
+    <source src="song\background.mp4" type="audio/mpeg">
+  </audio>
+
+  <!-- AUDIO PLAYER BAR -->
+  <div class="audio-bar">
+    <div class="audio-wave" id="audioWave">
+      <span style="height:10px"></span>
+      <span style="height:16px"></span>
+      <span style="height:8px"></span>
+      <span style="height:14px"></span>
+    </div>
+    <div class="audio-label">NASHEED</div>
+    <button class="audio-btn" id="audioBtn" onclick="toggleAudio()">▶</button>
+  </div>
+
+  <!-- LEAF PARTICLES -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const colors = ['#7a9e82','#a8c4a0','#4e7558','#c8ddc4','#b8963e'];
+      const frag = document.createDocumentFragment();
+      for (let i = 0; i < 16; i++) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        const w = 9+Math.random()*9, h=w*1.7;
+        svg.setAttribute('viewBox','0 0 10 17'); svg.setAttribute('width',w); svg.setAttribute('height',h);
+        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d','M5,0 Q10,4 5,17 Q0,4 5,0Z');
+        path.setAttribute('fill',colors[Math.floor(Math.random()*colors.length)]); path.setAttribute('opacity','0.70');
+        svg.appendChild(path); svg.classList.add('leaf-particle');
+        svg.style.cssText=`left:${Math.random()*100}vw;animation-duration:${8+Math.random()*9}s;animation-delay:${Math.random()*12}s;`;
+        frag.appendChild(svg);
+      }
+      document.body.prepend(frag);
+    });
+  </script>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-monogram">#HOME</div>
+    <ul class="nav-links">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="rsvp.html">RSVP</a></li>
+      <li><a href="confirmation.html">DETAILS</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-heading">
+      <h1>RSVP</h1>
+      <p>KINDLY RESPOND BEFORE THE EVENT</p>
+    </div>
+
+    <div class="card">
+
+      <!-- Botanical TL -->
+      <div class="floral floral-tl">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.88">
+            <path d="M12,12 Q50,48 88,90 Q112,118 134,168" stroke="#5c8a68" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="62" cy="46" rx="27" ry="12" fill="#8fba98" opacity="0.78" transform="rotate(-38 62 46)"/>
+            <ellipse cx="62" cy="46" rx="25" ry="10" fill="#b4d0b8" opacity="0.55" transform="rotate(-38 62 46)"/>
+            <line x1="42" y1="60" x2="82" y2="34" stroke="#5c8a68" stroke-width="0.8" opacity="0.65"/>
+            <ellipse cx="92" cy="78" rx="30" ry="12" fill="#7aaf85" opacity="0.72" transform="rotate(-22 92 78)"/>
+            <line x1="66" y1="86" x2="118" y2="70" stroke="#5c8a68" stroke-width="0.8" opacity="0.60"/>
+            <ellipse cx="112" cy="114" rx="28" ry="11" fill="#6ea877" opacity="0.74" transform="rotate(-12 112 114)"/>
+            <ellipse cx="34" cy="64" rx="16" ry="7" fill="#a0c5a0" opacity="0.62" transform="rotate(-52 34 64)"/>
+            <ellipse cx="20" cy="82" rx="13" ry="6" fill="#b5d0b5" opacity="0.55" transform="rotate(-58 20 82)"/>
+            <circle cx="78" cy="32" r="3.5" fill="#f5f8f5" opacity="0.92"/>
+            <circle cx="86" cy="26" r="2.5" fill="#f5f8f5" opacity="0.87"/>
+            <circle cx="70" cy="27" r="2" fill="#f5f8f5" opacity="0.82"/>
+            <circle cx="104" cy="62" r="3" fill="#f5f8f5" opacity="0.88"/>
+            <circle cx="113" cy="57" r="2.2" fill="#f5f8f5" opacity="0.84"/>
+            <circle cx="60" cy="34" r="2" fill="#c9a84c" opacity="0.68"/>
+            <circle cx="95" cy="63" r="1.8" fill="#c9a84c" opacity="0.62"/>
+            <circle cx="122" cy="100" r="1.6" fill="#c9a84c" opacity="0.55"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Botanical TR -->
+      <div class="floral floral-tr">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.88">
+            <path d="M12,12 Q50,48 88,90 Q112,118 134,168" stroke="#5c8a68" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="62" cy="46" rx="27" ry="12" fill="#8fba98" opacity="0.78" transform="rotate(-38 62 46)"/>
+            <ellipse cx="92" cy="78" rx="30" ry="12" fill="#7aaf85" opacity="0.72" transform="rotate(-22 92 78)"/>
+            <ellipse cx="112" cy="114" rx="28" ry="11" fill="#6ea877" opacity="0.74" transform="rotate(-12 112 114)"/>
+            <ellipse cx="34" cy="64" rx="16" ry="7" fill="#a0c5a0" opacity="0.62" transform="rotate(-52 34 64)"/>
+            <circle cx="78" cy="32" r="3.5" fill="#f5f8f5" opacity="0.92"/>
+            <circle cx="86" cy="26" r="2.5" fill="#f5f8f5" opacity="0.87"/>
+            <circle cx="104" cy="62" r="3" fill="#f5f8f5" opacity="0.88"/>
+            <circle cx="60" cy="34" r="2" fill="#c9a84c" opacity="0.68"/>
+            <circle cx="95" cy="63" r="1.8" fill="#c9a84c" opacity="0.62"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Botanical BL -->
+      <div class="floral floral-bl">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.72">
+            <path d="M12,12 Q50,48 88,90 Q112,118 134,168" stroke="#5c8a68" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="62" cy="46" rx="25" ry="11" fill="#8fba98" opacity="0.65" transform="rotate(-38 62 46)"/>
+            <ellipse cx="92" cy="78" rx="27" ry="11" fill="#7aaf85" opacity="0.62" transform="rotate(-22 92 78)"/>
+            <ellipse cx="112" cy="114" rx="24" ry="10" fill="#6ea877" opacity="0.64" transform="rotate(-12 112 114)"/>
+            <circle cx="78" cy="32" r="3" fill="#f5f8f5" opacity="0.88"/>
+            <circle cx="60" cy="34" r="1.8" fill="#c9a84c" opacity="0.60"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Botanical BR -->
+      <div class="floral floral-br">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.72">
+            <path d="M12,12 Q50,48 88,90 Q112,118 134,168" stroke="#5c8a68" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="62" cy="46" rx="25" ry="11" fill="#8fba98" opacity="0.65" transform="rotate(-38 62 46)"/>
+            <ellipse cx="92" cy="78" rx="27" ry="11" fill="#7aaf85" opacity="0.62" transform="rotate(-22 92 78)"/>
+            <ellipse cx="112" cy="114" rx="24" ry="10" fill="#6ea877" opacity="0.64" transform="rotate(-12 112 114)"/>
+            <circle cx="78" cy="32" r="3" fill="#f5f8f5" opacity="0.88"/>
+            <circle cx="104" cy="62" r="2.5" fill="#f5f8f5" opacity="0.84"/>
+            <circle cx="60" cy="34" r="1.8" fill="#c9a84c" opacity="0.60"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="form-inner">
+        <div class="form-top">
+          <div class="arabic-top">إِنْ شَاءَ اَللَّهُ</div>
+          <div class="divider"></div>
+          <div id="welcomeWrap" style="display:none;margin-bottom:8px;">
+            <div style="font-family:'Dancing Script',cursive;font-size:42px;color:#4e7558;line-height:1.1;" id="welcomeName"></div>
+            <div style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#4a5e4b;margin-top:4px;">YOU ARE CORDIALLY INVITED</div>
+          </div>
+          <div id="noIdWrap" style="display:none;">
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#4a5e4b;padding:10px;border:1px solid rgba(122,158,130,0.30);border-radius:2px;">
+              INVALID INVITE LINK — PLEASE USE YOUR PERSONAL LINK
+            </div>
+          </div>
+          <div class="form-subtitle" id="formSubtitle">PLEASE FILL IN YOUR DETAILS BELOW</div>
+        </div>
+
+        <div class="field-group">
+          <label>HOW MANY FAMILY MEMBERS WILL ATTEND?</label>
+          <div class="number-stepper">
+            <button class="stepper-btn" onclick="changeCount(-1)">−</button>
+            <input type="number" id="guestCount" class="stepper-input" value="1" min="1" max="20" readonly>
+            <button class="stepper-btn" onclick="changeCount(1)">+</button>
+          </div>
+        </div>
+
+        <button class="btn-submit" id="submitBtn" onclick="submitRSVP()">CONFIRM ATTENDANCE</button>
+        <button class="btn-decline" id="declineBtn" onclick="declineRSVP()">UNFORTUNATELY I CAN'T MAKE IT</button>
+        <div class="error-msg" id="errorMsg">UNABLE TO SUBMIT — INVALID INVITE LINK</div>
+        <p class="note">JazakAllah Khayran for your response.<br>We look forward to celebrating with you.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>بِسْمِ اللَّهِ &nbsp;·&nbsp; House Warming Ceremony of Shabeer & Jaseela &nbsp;·&nbsp; MAY 24, 2026 <br><br>Created by Junaid Cheerangan</footer>
+
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbz96xpkCz46unkm8LphM239-GPxIML4XpiIeLnCpRYdvgIkSuNnEUFkjaCgbdMbUTd9/exec';
+
+    let guestId = null;
+    let guestName = null;
+
+    function showGuestName(name) {
+      guestName = name;
+      localStorage.setItem('rsvp_name', name);
+      document.getElementById('welcomeName').textContent = name;
+      document.getElementById('welcomeWrap').style.display = 'block';
+      document.getElementById('formSubtitle').style.display = 'none';
+    }
+
+    function showInvalid() {
+      document.getElementById('noIdWrap').style.display = 'block';
+      document.getElementById('welcomeWrap').style.display = 'none';
+      document.getElementById('formSubtitle').style.display = 'none';
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('declineBtn').disabled = true;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const nameFromUrl = params.get('name');
+
+      const audio = document.getElementById('nasheed');
+      audio.volume = 0.45;
+      const savedTime = parseFloat(sessionStorage.getItem('nasheed_time') || '0');
+      const savedAt = parseInt(sessionStorage.getItem('nasheed_saved_at') || '0');
+      const wasPlaying = sessionStorage.getItem('nasheed_playing') === '1';
+      sessionStorage.removeItem('nasheed_time');
+      sessionStorage.removeItem('nasheed_saved_at');
+      sessionStorage.removeItem('nasheed_playing');
+
+      if (wasPlaying && savedTime > 0) {
+        const elapsedSec = savedAt ? (Date.now() - savedAt) / 1000 : 0;
+        audio.currentTime = Math.max(0, savedTime + elapsedSec);
+      }
+
+      audio.play().then(() => {
+        document.getElementById('audioBtn').textContent = '⏸';
+        document.getElementById('audioWave').classList.remove('paused');
+      }).catch(() => {
+        document.getElementById('audioWave').classList.add('paused');
+      });
+
+      if (!id) { showInvalid(); return; }
+
+      guestId = id;
+      localStorage.setItem('rsvp_id', id);
+
+      const cachedCount = localStorage.getItem('rsvp_count_' + id);
+      if (cachedCount) document.getElementById('guestCount').value = cachedCount;
+
+      const cachedName =
+        localStorage.getItem('rsvp_name_' + id) ||
+        (nameFromUrl ? decodeURIComponent(nameFromUrl) : null) ||
+        localStorage.getItem('rsvp_name') || null;
+
+      if (cachedName) { localStorage.setItem('rsvp_name_' + id, cachedName); showGuestName(cachedName); }
+
+      fetch(`${API_URL}?action=getGuest&id=${id}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.guest) { localStorage.setItem('rsvp_name_' + id, data.guest.name); showGuestName(data.guest.name); }
+          else if (!cachedName) { showInvalid(); }
+        })
+        .catch(() => { if (!cachedName) showInvalid(); });
+    });
+
+    function changeCount(delta) {
+      const input = document.getElementById('guestCount');
+      const val = parseInt(input.value) + delta;
+      if (val >= 1 && val <= 20) input.value = val;
+    }
+
+    function toggleAudio() {
+      const audio = document.getElementById('nasheed');
+      const btn = document.getElementById('audioBtn');
+      const wave = document.getElementById('audioWave');
+      if (audio.paused) { audio.play(); btn.textContent = '⏸'; wave.classList.remove('paused'); }
+      else { audio.pause(); btn.textContent = '▶'; wave.classList.add('paused'); }
+    }
+
+    function saveNasheedState() {
+      const nasheed = document.getElementById('nasheed');
+      if (nasheed && !nasheed.paused) {
+        sessionStorage.setItem('nasheed_time', nasheed.currentTime);
+        sessionStorage.setItem('nasheed_saved_at', Date.now());
+        sessionStorage.setItem('nasheed_playing', '1');
+      }
+    }
+
+    window.addEventListener('pagehide', saveNasheedState);
+
+    function lockButtons(which) {
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('declineBtn').disabled = true;
+      if (which === 'submit') { document.getElementById('submitBtn').innerHTML = '<span class="spinner"></span>SUBMITTING...'; }
+      else { document.getElementById('declineBtn').textContent = 'SENDING...'; }
+    }
+
+    async function submitRSVP() {
+      if (!guestId) return;
+      const count = document.getElementById('guestCount').value;
+      localStorage.setItem('rsvp_name', guestName || '');
+      localStorage.setItem('rsvp_count', count);
+      lockButtons('submit');
+      try {
+        await fetch(API_URL, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'submitRSVP', id: guestId, attending: true, guestsCount: parseInt(count) })
+        });
+      } catch (e) {}
+      saveNasheedState();
+      window.location.href = 'confirmation.html?id=' + guestId;
+    }
+
+    async function declineRSVP() {
+      if (!guestId) return;
+      localStorage.setItem('rsvp_name', guestName || '');
+      localStorage.setItem('rsvp_count', '0');
+      lockButtons('decline');
+      try {
+        await fetch(API_URL, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'submitRSVP', id: guestId, attending: false, guestsCount: 0 })
+        });
+      } catch (e) {}
+      saveNasheedState();
+      window.location.href = 'decline.html?id=' + guestId;
+    }
+  </script>
+</body>
+</html>

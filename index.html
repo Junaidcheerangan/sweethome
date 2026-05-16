@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shabeer & Jaseela — House Warming Ceremony</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Cinzel:wght@400;500;600&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <style>
+    :root {
+      --cream: #f4f0e8;
+      --parchment: #ece5d4;
+      --sage: #7a9e82;
+      --sage-light: #a8c4a0;
+      --sage-deep: #4e7558;
+      --sage-mist: #c8ddc4;
+      --gold: #b8963e;
+      --gold-light: #d4b060;
+      --text-dark: #2e3d2f;
+      --text-mid: #4a5e4b;
+      --text-soft: #6b8070;
+      --white-mist: #f8f5ef;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(ellipse 900px 600px at 20% 30%, rgba(168,196,160,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 700px 800px at 80% 70%, rgba(122,158,130,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 400px at 60% 10%, rgba(200,221,196,0.20) 0%, transparent 60%),
+        linear-gradient(160deg, #dde8d8 0%, #e8ede2 25%, #f0ece2 50%, #e9e4d8 75%, #dfe8da 100%);
+      min-height: 100vh;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--text-dark);
+    }
+
+    /* LEAF PARTICLES */
+    .leaf-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: leafDrift linear infinite;
+    }
+
+    @keyframes leafDrift {
+      0%   { transform: translateY(-30px) rotate(0deg) translateX(0px); opacity: 0; }
+      8%   { opacity: 0.55; }
+      50%  { transform: translateY(50vh) rotate(200deg) translateX(30px); opacity: 0.4; }
+      92%  { opacity: 0.2; }
+      100% { transform: translateY(100vh) rotate(360deg) translateX(-20px); opacity: 0; }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(240,236,226,0.90);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(122,158,130,0.35);
+    }
+    .nav-monogram { font-family: 'Lilita One', cursive; font-size:28px; color:var(--sage-deep); letter-spacing:1px; font-weight: bold; }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { font-family:'Cinzel',serif; font-size:10px; letter-spacing:3px; color:var(--sage-deep); text-decoration:none; transition:color 0.3s; }
+    .nav-links a:hover { color:var(--gold); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display:flex; align-items:center; justify-content:center;
+      padding: 100px 20px 60px; position:relative; overflow:hidden;
+    }
+
+    /* CARD */
+    .card {
+      position: relative; width:100%; max-width:480px;
+      background:
+        radial-gradient(ellipse 340px 260px at 18% 22%, rgba(240,248,240,0.92) 0%, transparent 65%),
+        radial-gradient(ellipse 260px 340px at 82% 65%, rgba(235,245,233,0.88) 0%, transparent 65%),
+        linear-gradient(155deg, #f6f9f4 0%, #f2f6ef 30%, #faf8f3 55%, #f5f2ea 80%, #f3f7f1 100%);
+      border-radius: 4px; overflow:hidden; text-align:center; padding:70px 50px 55px;
+      box-shadow: 0 30px 80px rgba(78,117,88,0.18), 0 0 0 1px rgba(122,158,130,0.30), inset 0 0 80px rgba(200,221,196,0.20);
+      animation: cardReveal 1.2s ease both; z-index:2;
+    }
+
+    @keyframes cardReveal {
+      from { opacity:0; transform:translateY(30px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* BOTANICAL CORNERS */
+    .floral { position:absolute; width:240px; height:240px; pointer-events:none; z-index:3; }
+    .floral-tl { top:-8px; left:-8px; }
+    .floral-tr { top:-8px; right:-8px; transform:scaleX(-1); }
+    .floral-bl { bottom:-8px; left:-8px; transform:scaleY(-1); }
+    .floral-br { bottom:-8px; right:-8px; transform:scale(-1,-1); }
+
+    /* CONTENT */
+    .content { position:relative; z-index:2; }
+
+    .bismillah-arabic { font-size:36px; color:var(--text-dark); line-height:1.3; font-family:'Scheherazade New','Traditional Arabic',serif; animation:fadeUp 1s 0.3s both; }
+    .bismillah-en { font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:var(--text-mid); margin-top:6px; line-height:1.8; animation:fadeUp 1s 0.5s both; }
+
+    .divider { width:80px; height:1px; background:linear-gradient(90deg,transparent,var(--sage),transparent); margin:16px auto; animation:fadeUp 1s 0.6s both; }
+    .divider-ornament { display:flex; align-items:center; justify-content:center; gap:10px; margin:14px auto; animation:fadeUp 1s 0.6s both; }
+    .divider-ornament span { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--sage-light)); }
+    .divider-ornament span:last-child { background:linear-gradient(270deg,transparent,var(--sage-light)); }
+    .divider-ornament i { color:var(--sage); font-size:10px; }
+
+    .together { font-family:'Cinzel',serif; font-size:15px; letter-spacing:3.5px; color:var(--text-mid); margin-bottom:12px; animation:fadeUp 1s 0.7s both; font-weight: 1000;}
+
+    .name-script { font-family:'Dancing Script',cursive; font-size:55px; color:var(--sage-deep); line-height:1.05; text-shadow:0 2px 14px rgba(78,117,88,0.20); }
+    .name-label { font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:var(--text-mid); margin-top:3px; }
+    .ampersand { font-family:'Dancing Script',cursive; font-size:48px; color:var(--gold); display:block; margin:4px 0; }
+
+    .invite-text { font-family:'Cinzel',serif; font-size:9.5px; letter-spacing:3px; color:var(--text-mid); line-height:1.9; margin-top:18px; }
+
+    /* HOUSE ILLUSTRATION */
+    .house-illustration { margin:18px auto 6px; width:350px; height:300px; animation:fadeUp 1s 1.1s both; }
+
+    /* DATE BLOCK */
+    .date-block { margin:20px auto 0; width:280px; }
+    .date-month { font-family:'Cinzel',serif; font-size:12px; letter-spacing:6px; color:var(--text-mid); font-weight:500; }
+    .date-row { display:flex; align-items:center; justify-content:center; gap:0; margin:8px 0 3px; }
+    .date-rule { flex:1; height:1px; background:var(--sage-light); }
+    .date-inner { display:flex; align-items:baseline; gap:12px; padding:0 14px; }
+    .date-day-name { font-family:'Cinzel',serif; font-size:10px; letter-spacing:2px; color:var(--text-mid); font-weight:500; }
+    .date-num { font-family:'Cinzel',serif; font-size:40px; color:var(--sage-deep); font-weight:600; line-height:1; }
+    .date-time { font-family:'Cinzel',serif; font-size:10px; letter-spacing:2px; color:var(--text-mid); font-weight:500; }
+    .date-year { font-family:'Cinzel',serif; font-size:10px; letter-spacing:5px; color:var(--text-mid); margin-top:3px; }
+
+    .inshallah { font-size:32px; color:var(--sage-deep); margin:16px 0 18px; font-family:'Scheherazade New','Traditional Arabic',serif; line-height:1.5; }
+
+    .venue { font-family:'Cinzel',serif; font-size:10px; letter-spacing:3px; color:var(--text-mid); line-height:2; font-weight:500; }
+
+    /* COUNTDOWN */
+    .countdown-wrap { margin:22px auto 0; padding:16px 20px; border:1px solid rgba(122,158,130,0.45); background:rgba(200,221,196,0.18); border-radius:4px; width:fit-content; min-width:260px; }
+    .countdown-label { font-family:'Cinzel',serif; font-size:8px; letter-spacing:4px; color:var(--text-mid); margin-bottom:10px; }
+    .countdown-grid { display:flex; gap:4px; justify-content:center; align-items:center; }
+    .countdown-unit { display:flex; flex-direction:column; align-items:center; gap:2px; }
+    .countdown-num { font-family:'Cinzel',serif; font-size:28px; font-weight:600; color:var(--sage-deep); line-height:1; min-width:52px; text-align:center; background:rgba(240,248,240,0.75); border:1px solid rgba(122,158,130,0.35); padding:6px 4px; border-radius:3px; }
+    .countdown-sub { font-family:'Cinzel',serif; font-size:7px; letter-spacing:2px; color:var(--text-soft); }
+    .countdown-colon { font-family:'Cinzel',serif; font-size:22px; color:var(--sage); margin-bottom:14px; }
+
+    /* RSVP */
+    .rsvp-section { margin-top:30px; display:flex; flex-direction:column; gap:12px; align-items:center; }
+    .rsvp-question { font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:var(--text-mid); letter-spacing:1px; margin-bottom:4px; }
+    .btn-yes, .btn-no { width:100%; max-width:300px; padding:14px 24px; border:none; cursor:pointer; font-family:'Cinzel',serif; font-size:10px; letter-spacing:3px; transition:all 0.3s ease; text-decoration:none; display:block; text-align:center; border-radius:2px; }
+    .btn-yes { background:linear-gradient(135deg,#4e7558,#7a9e82); color:#f4f0e8; box-shadow:0 4px 20px rgba(78,117,88,0.28); }
+    .btn-yes:hover { background:linear-gradient(135deg,#7a9e82,#a8c4a0); transform:translateY(-2px); box-shadow:0 8px 28px rgba(78,117,88,0.38); }
+    .btn-no { background:transparent; color:var(--text-mid); border:1px solid rgba(122,158,130,0.55); }
+    .btn-no:hover { background:rgba(122,158,130,0.10); border-color:var(--sage); transform:translateY(-1px); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .anim-1 { animation:fadeUp 1s 0.4s both; }
+    .anim-2 { animation:fadeUp 1s 0.6s both; }
+    .anim-3 { animation:fadeUp 1s 0.8s both; }
+    .anim-4 { animation:fadeUp 1s 1.0s both; }
+    .anim-5 { animation:fadeUp 1s 1.2s both; }
+    .anim-6 { animation:fadeUp 1s 1.4s both; }
+    .anim-7 { animation:fadeUp 1s 1.6s both; }
+    .anim-8 { animation:fadeUp 1s 1.8s both; }
+
+    footer { text-align:center; padding:24px; font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:rgba(78,117,88,0.55); }
+
+    @media (max-width: 520px) {
+      .card { padding:60px 28px 44px; }
+      .name-script { font-size:46px; }
+      nav { padding:14px 20px; }
+      .nav-links { gap:18px; }
+      .floral { width:180px; height:180px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LEAF PARTICLES -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const colors = ['#7a9e82','#a8c4a0','#4e7558','#c8ddc4','#b8963e'];
+      const frag = document.createDocumentFragment();
+      for (let i = 0; i < 18; i++) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        const w = 10 + Math.random()*10, h = w * 1.7;
+        svg.setAttribute('viewBox','0 0 10 17');
+        svg.setAttribute('width', w); svg.setAttribute('height', h);
+        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d','M5,0 Q10,4 5,17 Q0,4 5,0Z');
+        path.setAttribute('fill', colors[Math.floor(Math.random()*colors.length)]);
+        path.setAttribute('opacity','0.75');
+        svg.appendChild(path);
+        svg.classList.add('leaf-particle');
+        svg.style.cssText = `left:${Math.random()*100}vw; animation-duration:${7+Math.random()*9}s; animation-delay:${Math.random()*12}s;`;
+        frag.appendChild(svg);
+      }
+      document.body.prepend(frag);
+    });
+  </script>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-monogram">#HOME</div>
+    <ul class="nav-links">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="rsvp.html">RSVP</a></li>
+      <li><a href="confirmation.html">DETAILS</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CARD -->
+  <div class="hero">
+    <div class="card">
+
+      <!-- TOP-LEFT botanical corner -->
+      <div class="floral floral-tl">
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.90">
+            <path d="M12,12 Q52,52 92,98 Q118,128 142,182" stroke="#5c8a68" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <!-- Large leaves -->
+            <ellipse cx="70" cy="52" rx="30" ry="13" fill="#8fba98" opacity="0.78" transform="rotate(-38 70 52)"/>
+            <ellipse cx="70" cy="52" rx="28" ry="11" fill="#b4d0b8" opacity="0.55" transform="rotate(-38 70 52)"/>
+            <line x1="48" y1="66" x2="90" y2="40" stroke="#5c8a68" stroke-width="0.9" opacity="0.65"/>
+            <ellipse cx="103" cy="85" rx="34" ry="13" fill="#7aaf85" opacity="0.72" transform="rotate(-22 103 85)"/>
+            <ellipse cx="103" cy="85" rx="32" ry="11" fill="#a4c8a8" opacity="0.52" transform="rotate(-22 103 85)"/>
+            <line x1="74" y1="93" x2="132" y2="78" stroke="#5c8a68" stroke-width="0.9" opacity="0.60"/>
+            <ellipse cx="126" cy="125" rx="31" ry="12" fill="#6ea877" opacity="0.74" transform="rotate(-12 126 125)"/>
+            <line x1="98" y1="130" x2="154" y2="121" stroke="#5c8a68" stroke-width="0.9" opacity="0.58"/>
+            <!-- Accent leaves -->
+            <ellipse cx="38" cy="70" rx="18" ry="8" fill="#a0c5a0" opacity="0.62" transform="rotate(-52 38 70)"/>
+            <ellipse cx="22" cy="90" rx="15" ry="7" fill="#b5d0b5" opacity="0.58" transform="rotate(-58 22 90)"/>
+            <!-- White berries -->
+            <circle cx="86" cy="36" r="4" fill="#f5f8f5" opacity="0.92"/>
+            <circle cx="95" cy="30" r="3" fill="#f5f8f5" opacity="0.87"/>
+            <circle cx="78" cy="31" r="2.5" fill="#f5f8f5" opacity="0.82"/>
+            <circle cx="116" cy="68" r="3.5" fill="#f5f8f5" opacity="0.90"/>
+            <circle cx="126" cy="62" r="2.5" fill="#f5f8f5" opacity="0.84"/>
+            <circle cx="108" cy="63" r="2" fill="#f5f8f5" opacity="0.80"/>
+            <!-- Gold dots -->
+            <circle cx="68" cy="38" r="2.2" fill="#c9a84c" opacity="0.68"/>
+            <circle cx="106" cy="70" r="2" fill="#c9a84c" opacity="0.62"/>
+            <circle cx="136" cy="110" r="1.8" fill="#c9a84c" opacity="0.55"/>
+            <!-- Thin wispy stems -->
+            <path d="M52,42 Q68,28 80,33" stroke="#7aaf85" stroke-width="0.8" fill="none" opacity="0.72"/>
+            <path d="M88,76 Q107,59 118,65" stroke="#7aaf85" stroke-width="0.8" fill="none" opacity="0.68"/>
+            <path d="M28,75 Q42,60 50,68" stroke="#7aaf85" stroke-width="0.7" fill="none" opacity="0.55"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- TOP-RIGHT (mirror of TL) -->
+      <div class="floral floral-tr">
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.90">
+            <path d="M12,12 Q52,52 92,98 Q118,128 142,182" stroke="#5c8a68" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <ellipse cx="70" cy="52" rx="30" ry="13" fill="#8fba98" opacity="0.78" transform="rotate(-38 70 52)"/>
+            <ellipse cx="70" cy="52" rx="28" ry="11" fill="#b4d0b8" opacity="0.55" transform="rotate(-38 70 52)"/>
+            <line x1="48" y1="66" x2="90" y2="40" stroke="#5c8a68" stroke-width="0.9" opacity="0.65"/>
+            <ellipse cx="103" cy="85" rx="34" ry="13" fill="#7aaf85" opacity="0.72" transform="rotate(-22 103 85)"/>
+            <line x1="74" y1="93" x2="132" y2="78" stroke="#5c8a68" stroke-width="0.9" opacity="0.60"/>
+            <ellipse cx="126" cy="125" rx="31" ry="12" fill="#6ea877" opacity="0.74" transform="rotate(-12 126 125)"/>
+            <ellipse cx="38" cy="70" rx="18" ry="8" fill="#a0c5a0" opacity="0.62" transform="rotate(-52 38 70)"/>
+            <circle cx="86" cy="36" r="4" fill="#f5f8f5" opacity="0.92"/>
+            <circle cx="95" cy="30" r="3" fill="#f5f8f5" opacity="0.87"/>
+            <circle cx="116" cy="68" r="3.5" fill="#f5f8f5" opacity="0.90"/>
+            <circle cx="68" cy="38" r="2.2" fill="#c9a84c" opacity="0.68"/>
+            <circle cx="106" cy="70" r="2" fill="#c9a84c" opacity="0.62"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- BOTTOM-LEFT (lighter, subtler) -->
+      <div class="floral floral-bl">
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.75">
+            <path d="M12,12 Q52,52 92,98 Q118,128 142,182" stroke="#5c8a68" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="70" cy="52" rx="27" ry="12" fill="#8fba98" opacity="0.65" transform="rotate(-38 70 52)"/>
+            <ellipse cx="103" cy="85" rx="30" ry="12" fill="#7aaf85" opacity="0.62" transform="rotate(-22 103 85)"/>
+            <ellipse cx="126" cy="125" rx="27" ry="11" fill="#6ea877" opacity="0.64" transform="rotate(-12 126 125)"/>
+            <ellipse cx="38" cy="70" rx="15" ry="7" fill="#a0c5a0" opacity="0.56" transform="rotate(-52 38 70)"/>
+            <circle cx="86" cy="36" r="3.5" fill="#f5f8f5" opacity="0.88"/>
+            <circle cx="95" cy="30" r="2.5" fill="#f5f8f5" opacity="0.82"/>
+            <circle cx="68" cy="38" r="2" fill="#c9a84c" opacity="0.60"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- BOTTOM-RIGHT -->
+      <div class="floral floral-br">
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.75">
+            <path d="M12,12 Q52,52 92,98 Q118,128 142,182" stroke="#5c8a68" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="70" cy="52" rx="27" ry="12" fill="#8fba98" opacity="0.65" transform="rotate(-38 70 52)"/>
+            <ellipse cx="103" cy="85" rx="30" ry="12" fill="#7aaf85" opacity="0.62" transform="rotate(-22 103 85)"/>
+            <ellipse cx="126" cy="125" rx="27" ry="11" fill="#6ea877" opacity="0.64" transform="rotate(-12 126 125)"/>
+            <circle cx="86" cy="36" r="3.5" fill="#f5f8f5" opacity="0.88"/>
+            <circle cx="116" cy="68" r="3" fill="#f5f8f5" opacity="0.84"/>
+            <circle cx="68" cy="38" r="2" fill="#c9a84c" opacity="0.60"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="content">
+        <div class="anim-1">
+          <div class="bismillah-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+          <div class="bismillah-en">IN THE NAME OF ALLAH<br>THE MOST MERCIFUL</div>
+        </div>
+
+        <div class="divider anim-2"></div>
+
+        <p class="together anim-2">HOUSE WARMING CEREMONY</p>
+
+        <!-- Watercolour-style house illustration -->
+        <div class="house-illustration anim-3">
+          <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
+            <!-- Misty ground wash -->
+            <ellipse cx="90" cy="120" rx="82" ry="16" fill="#c8ddc4" opacity="0.38"/>
+            <ellipse cx="90" cy="122" rx="70" ry="10" fill="#b8d0b4" opacity="0.28"/>
+            <!-- House body -->
+            <rect x="46" y="63" width="88" height="57" rx="2" fill="#f2ede2"/>
+            <rect x="46" y="63" width="88" height="57" rx="2" fill="none" stroke="#b0b8a8" stroke-width="0.9"/>
+            <!-- Roof -->
+            <polygon points="38,66 90,27 142,66" fill="#907262"/>
+            <polygon points="38,66 90,27 142,66" fill="none" stroke="#7a6252" stroke-width="0.9"/>
+            <!-- Chimney -->
+            <rect x="109" y="36" width="12" height="22" fill="#9a8272"/>
+            <rect x="107" y="33" width="16" height="6" rx="1.5" fill="#887060"/>
+            <!-- Chimney smoke -->
+            <path d="M115,30 Q118,21 115,14 Q112,8 115,3" stroke="#c8ddc4" stroke-width="2.2" fill="none" opacity="0.55" stroke-linecap="round"/>
+            <path d="M119,28 Q122,19 119,12" stroke="#c8ddc4" stroke-width="1.5" fill="none" opacity="0.38" stroke-linecap="round"/>
+            <!-- Door (arched pink) -->
+            <path d="M80,120 L80,92 Q80,84 90,84 Q100,84 100,92 L100,120 Z" fill="#e8a0a8"/>
+            <path d="M80,120 L80,92 Q80,84 90,84 Q100,84 100,92 L100,120 Z" fill="none" stroke="#d08890" stroke-width="0.8"/>
+            <circle cx="98" cy="104" r="2.2" fill="#c07880"/>
+            <!-- Left window -->
+            <rect x="52" y="74" width="22" height="17" rx="2" fill="#cce8ec" opacity="0.88"/>
+            <rect x="52" y="74" width="22" height="17" rx="2" fill="none" stroke="#a8b8a8" stroke-width="0.7"/>
+            <line x1="63" y1="74" x2="63" y2="91" stroke="#a8b8a8" stroke-width="0.5"/>
+            <line x1="52" y1="82.5" x2="74" y2="82.5" stroke="#a8b8a8" stroke-width="0.5"/>
+            <!-- Right window -->
+            <rect x="106" y="74" width="22" height="17" rx="2" fill="#cce8ec" opacity="0.88"/>
+            <rect x="106" y="74" width="22" height="17" rx="2" fill="none" stroke="#a8b8a8" stroke-width="0.7"/>
+            <line x1="117" y1="74" x2="117" y2="91" stroke="#a8b8a8" stroke-width="0.5"/>
+            <line x1="106" y1="82.5" x2="128" y2="82.5" stroke="#a8b8a8" stroke-width="0.5"/>
+            <!-- Roof window (arched) -->
+            <ellipse cx="90" cy="48" rx="10" ry="8" fill="#cce8ec" opacity="0.78"/>
+            <ellipse cx="90" cy="48" rx="10" ry="8" fill="none" stroke="#a8b8a8" stroke-width="0.7"/>
+            <!-- White fence left -->
+            <line x1="28" y1="121" x2="28" y2="106" stroke="#e0d8cc" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="35" y1="121" x2="35" y2="104" stroke="#e0d8cc" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="43" y1="121" x2="43" y2="107" stroke="#e0d8cc" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="26" y1="107.5" x2="45" y2="107.5" stroke="#e0d8cc" stroke-width="1.6" stroke-linecap="round"/>
+            <!-- White fence right -->
+            <line x1="137" y1="121" x2="137" y2="107" stroke="#e0d8cc" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="145" y1="121" x2="145" y2="104" stroke="#e0d8cc" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="153" y1="121" x2="153" y2="104" stroke="#e0d8cc" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="135" y1="107.5" x2="155" y2="107.5" stroke="#e0d8cc" stroke-width="1.6" stroke-linecap="round"/>
+            <!-- Left green bush/plant -->
+            <line x1="36" y1="120" x2="37" y2="96" stroke="#7aaf85" stroke-width="1.3" stroke-linecap="round"/>
+            <ellipse cx="30" cy="93" rx="9" ry="6" fill="#8fba98" opacity="0.82" transform="rotate(-22 30 93)"/>
+            <ellipse cx="42" cy="88" rx="8" ry="5.5" fill="#7aaf85" opacity="0.78" transform="rotate(16 42 88)"/>
+            <ellipse cx="35" cy="84" rx="7" ry="5" fill="#a8c4a0" opacity="0.72" transform="rotate(-6 35 84)"/>
+            <!-- Right pampas grass -->
+            <line x1="149" y1="120" x2="151" y2="97" stroke="#c8aa70" stroke-width="1.3" stroke-linecap="round"/>
+            <line x1="154" y1="120" x2="157" y2="94" stroke="#c8aa70" stroke-width="1.1" stroke-linecap="round"/>
+            <line x1="144" y1="120" x2="145" y2="99" stroke="#b89860" stroke-width="1.1" stroke-linecap="round"/>
+            <ellipse cx="151" cy="95" rx="5.5" ry="3.5" fill="#d8c090" opacity="0.72" transform="rotate(-12 151 95)"/>
+            <ellipse cx="157" cy="92" rx="4.5" ry="3" fill="#c8aa70" opacity="0.66" transform="rotate(12 157 92)"/>
+            <ellipse cx="145" cy="97" rx="4" ry="2.5" fill="#c0a065" opacity="0.60" transform="rotate(-5 145 97)"/>
+          </svg>
+        </div>
+
+        <div class="anim-4">
+          <div class="name-script">Shabeer &amp; Jaseela</div>
+        </div>
+
+        <p class="invite-text anim-5">WE WARMLY INVITE YOU TO JOIN US<br>IN CELEBRATING THE BLESSING OF OUR NEW HOME</p>
+
+        <div class="date-block anim-5">
+          <div class="date-month">MAY</div>
+          <div class="date-row">
+            <div class="date-rule"></div>
+            <div class="date-inner">
+              <span class="date-day-name">SUNDAY</span>
+              <span class="date-num">24</span>
+              <span class="date-time">AT 10:00 AM</span>
+            </div>
+            <div class="date-rule"></div>
+          </div>
+          <div class="date-year">2 0 2 6</div>
+        </div>
+
+        <div class="inshallah anim-6">إِنْ شَاءَ اَللَّهُ</div>
+
+        <div class="venue anim-6">
+          ROSE GARDEN, STREET 1, HOUSE NO 29<br>
+          Achanambalam Road, Vengara
+        </div>
+
+        <!-- COUNTDOWN -->
+        <div class="countdown-wrap anim-7">
+          <div class="countdown-label">COUNTING DOWN TO THE BIG DAY</div>
+          <div class="countdown-grid">
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-days">00</div>
+              <div class="countdown-sub">DAYS</div>
+            </div>
+            <div class="countdown-colon">:</div>
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-hours">00</div>
+              <div class="countdown-sub">HRS</div>
+            </div>
+            <div class="countdown-colon">:</div>
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-mins">00</div>
+              <div class="countdown-sub">MIN</div>
+            </div>
+            <div class="countdown-colon">:</div>
+            <div class="countdown-unit">
+              <div class="countdown-num" id="cd-secs">00</div>
+              <div class="countdown-sub">SEC</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RSVP BUTTONS -->
+        <div class="rsvp-section anim-8">
+          <p class="rsvp-question">Will you attend?</p>
+          <a href="rsvp.html" class="btn-yes">YES, IN SHA ALLAH!</a>
+          <a href="decline.html" class="btn-no">UNFORTUNATELY, I CAN'T MAKE IT</a>
+        </div>
+
+      </div><!-- /content -->
+    </div><!-- /card -->
+  </div><!-- /hero -->
+
+  <footer>بِسْمِ اللَّهِ &nbsp;·&nbsp; House Warming Ceremony of Shabeer & Jaseela &nbsp;·&nbsp; MAY 24, 2026 <br><br>Created by Junaid Cheerangan</footer>
+
+  <script>
+    /* ========= GUEST PARAMS ========= */
+    const params = new URLSearchParams(window.location.search);
+    const guestId = params.get("id");
+    const guestName = params.get("name");
+
+    /* ========= BEAUTIFUL WELCOME SCREEN ========= */
+    if (guestId || guestName) {
+      const nameText = guestName ? decodeURIComponent(guestName) : "Honoured Guest";
+      const overlay = document.createElement("div");
+      overlay.id = "welcomeOverlay";
+      overlay.innerHTML = `
+        <div style="position:fixed;inset:0;background:linear-gradient(135deg,#dde8d8,#e8ede2,#f0ece2);display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:20px;">
+          <div style="animation:fadeUp 1s ease;">
+            <div style="font-family:'Dancing Script',cursive;font-size:64px;color:#4e7558;line-height:1;">Welcome</div>
+            <div style="margin-top:14px;font-family:'Cormorant Garamond',serif;font-size:34px;color:#2e3d2f;font-style:italic;">${nameText}</div>
+            <div style="width:120px;height:1px;background:#7a9e82;margin:22px auto;"></div>
+            <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#4e7558;">YOU ARE CORDIALLY INVITED</div>
+          </div>
+        </div>`;
+      document.body.appendChild(overlay);
+      setTimeout(() => {
+        overlay.style.transition = "opacity .6s ease";
+        overlay.style.opacity = "0";
+        setTimeout(() => overlay.remove(), 600);
+      }, 3000);
+    }
+
+    /* ========= KEEP GUEST ID IN RSVP + DECLINE BUTTONS ========= */
+    if (guestId) {
+      const btnYes = document.querySelector(".btn-yes");
+      const btnNo  = document.querySelector(".btn-no");
+      btnYes.href = "rsvp.html?id=" + guestId + (guestName ? "&name=" + guestName : "");
+      btnNo.href  = "decline.html?id=" + guestId;
+    }
+
+    /* ========= COUNTDOWN ========= */
+    function updateCountdown() {
+      const target = new Date('2026-05-24T10:00:00');
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '00');
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
